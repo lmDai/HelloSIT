@@ -2,7 +2,6 @@ package com.example.luhongcheng;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,19 +17,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.luhongcheng.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import static com.example.luhongcheng.R.id.image;
-import static com.example.luhongcheng.R.id.password;
-import static com.example.luhongcheng.R.id.username;
 
 public class MainActivity extends Activity {
     /*以下是GridView定义的*/
