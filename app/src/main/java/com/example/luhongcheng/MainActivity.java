@@ -231,7 +231,7 @@ public class MainActivity extends Activity {
         username= spCount.getString("username", "");
         password= spCount.getString("password", "");
         if (username.length()==0 & password.length()==0){
-                Intent intent = new Intent(MainActivity.this,startactivity.class);
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
         }
 

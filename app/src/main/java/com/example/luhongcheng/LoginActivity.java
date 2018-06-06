@@ -27,7 +27,7 @@ import com.example.luhongcheng.UI.JellyInterpolator;
 
 
 
-public class startactivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText username,password;
     private TextView main_btn_login,main_btn_nologin;
@@ -59,21 +59,21 @@ public class startactivity extends AppCompatActivity implements View.OnClickList
         main_btn_login.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Intent intent = new Intent(startactivity.this, JellyInterpolator.class);
+               //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
                 usernameid = username.getText().toString();
                 passwordid = password.getText().toString();
                 if(usernameid.length()==0 & passwordid.length()==0){
                     //判断账号密码长度
-                    Toast.makeText(startactivity.this,"请输入学号和密码",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"请输入学号和密码",Toast.LENGTH_SHORT).show();
                 }
                 else if (usernameid.length()==10 & passwordid.length()>=4){
                     memInfo(usernameid,passwordid);
-                    Intent intent = new Intent(startactivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                     startActivity(intent);
                 }
                 else{
-                    Toast.makeText(startactivity.this,"格式错误，请重试",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"格式错误，请重试",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,8 +81,8 @@ public class startactivity extends AppCompatActivity implements View.OnClickList
         main_btn_nologin.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(startactivity.this, JellyInterpolator.class);
-                Intent intent2 = new Intent(startactivity.this, MainActivity.class);
+                //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
+                Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
 
                 //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                 startActivity(intent2);
@@ -96,7 +96,7 @@ public class startactivity extends AppCompatActivity implements View.OnClickList
         password.setText(sp.getString("password",""));
 
         if (username.length()==10 && password.length()>=4){
-            Intent intent3 = new Intent(startactivity.this,MainActivity.class);
+            Intent intent3 = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent3);
         }
     }
