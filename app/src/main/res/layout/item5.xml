@@ -49,6 +49,8 @@ Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若�
 
     </RelativeLayout>
 
+
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -61,7 +63,9 @@ Tips：学校服务器不稳定，连接内网查询成功几率更高哟，若�
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_alignParentBottom= "true">
+        android:layout_alignParentBottom= "true">\
+
+
 
         <Button
             android:id="@+id/send_request"

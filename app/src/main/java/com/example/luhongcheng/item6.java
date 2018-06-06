@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.luhongcheng.NEWS.News;
@@ -47,8 +48,6 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
     private NewsAdapter adapter;
     private Handler handler;
     private ListView lv;
-
-    private Button sendpostdata;
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies;
@@ -57,8 +56,9 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
     String xuehao;
     String mima;
 
+    private ProgressBar progressBar;
 
-
+    String b = "http://myportal.sit.edu.cn/";
     String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
     String LOGINURL2 = "http://myportal.sit.edu.cn/index.portal";
 
@@ -73,12 +73,14 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
 
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new NewsAdapter(item6.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,6 +102,7 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
         };
         getID();
         postdata();
+        testcookie(str);
     }
 
 
@@ -128,6 +131,31 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
             public void run() {
                 try {
                     OkHttpClient client = new OkHttpClient();
+
+
+                    Request request0 = new Request.Builder()
+                            .url(b)
+                            .build();
+                    Response response0= client.newCall(request0).execute();
+                    final Headers headers0 = response0.headers();
+                    Log.d("头信息b", "header " + headers0);
+                    cookies = headers0.values("Set-Cookie"); //这是另一种获取cookie的方法
+                    Log.d("JSESSIONID", "onResponse-size: " + cookies);
+                    String[] session = cookies.toArray(new String[cookies.size()]);
+                    String str1 = null;
+                    String str2 = null;
+                    String str3 = null;
+                    for (int i = 0; i < session.length; ++i) {
+                        str1 = session[i=0];
+                        str2 = session[i=1];
+                        str3 = session[i=2];
+                    }
+                    System.out.println("1:"+str1.toString());
+                    System.out.println("2:"+str2.toString());
+                    System.out.println("3:"+str3.toString());
+                    //str1是有用的SESSIONID
+
+
                     RequestBody requestBody = new FormBody.Builder()
                             .add("goto", "http://myportal.sit.edu.cn/loginSuccess.portal")
                             .add("gotoOnFail", "http://myportal.sit.edu.cn/loginFailure.portal")
@@ -149,6 +177,7 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
                     String[] strs = cookies.toArray(new String[cookies.size()]);
                     for (int i = 0; i < strs.length; ++i) {
                         str = strs[i];
+                        str = str1+";"+str;
                         testcookie(str);
                     }
 
@@ -224,8 +253,7 @@ public class item6 extends AppCompatActivity implements View.OnClickListener {
 
     private void testcookie(String str) {
         SharedPreferences.Editor editor=getSharedPreferences("cookies",0).edit();
-        editor.clear().commit();//清除消息
-
+        editor.clear();//清除消息
         editor.putString("iPlanetDirectoryPro",str); //保存iPlanetDirectoryPro
         editor.commit();
 

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -48,8 +49,7 @@ public class  item3 extends AppCompatActivity implements View.OnClickListener {
     String xuehao;
     String mima;
 
-    String str123;
-
+    private ProgressBar progressBar;
 
 
     @Override
@@ -63,12 +63,15 @@ public class  item3 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+
 
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new TestAdapter(item3.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -194,6 +197,9 @@ public class  item3 extends AppCompatActivity implements View.OnClickListener {
                     String str = str1+";"+str2+";"+str3+";"+str4;
                     //System.out.println("总共的cookies:"+str.toString());
 
+                    String classtablecookie = str;
+                    savecookie(classtablecookie);
+
                     Request request3 = new Request.Builder()
                             .url("http://ems.sit.edu.cn:85/student/main.jsp")
                             .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
@@ -214,10 +220,10 @@ public class  item3 extends AppCompatActivity implements View.OnClickListener {
 
                     okHttpClient.newCall(request3).enqueue(new Callback() {
                         @Override
-                        public void onFailure(okhttp3.Call call, IOException e) {
+                        public void onFailure(Call call, IOException e) {
                         }
                         @Override
-                        public void onResponse(okhttp3.Call call, Response response) throws IOException {
+                        public void onResponse(Call call, Response response) throws IOException {
                            //Log.d("源代码", "onResponse: " + response.body().string().toString());
                         }
                     });
@@ -229,6 +235,13 @@ public class  item3 extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         }).start();
+    }
+
+    private void savecookie(String classtablecookie) {
+        SharedPreferences.Editor editor=getSharedPreferences("classtable",0).edit();
+        editor.clear();
+        editor.putString("cookie",classtablecookie);
+        editor.commit();
     }
 
 

@@ -66,8 +66,10 @@ public class item13 extends AppCompatActivity {
                         break;
                     case 2:
                         //检查更新
-                        Intent intent2=new Intent(item13.this, about2.class);
-                        startActivity(intent2);
+                        Intent intent2 = new Intent();
+                        intent2.setData(Uri.parse("https://www.coolapk.com/apk/187672"));//Url 就是你要打开的网址
+                        intent2.setAction(Intent.ACTION_VIEW);
+                        startActivity(intent2); //启动浏览器
                         break;
                     case 3:
                        /* Intent intent3=new Intent(item13.this, about3.class);

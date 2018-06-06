@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.luhongcheng.NEWS.News;
@@ -44,18 +45,15 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
     private NewsAdapter adapter;
     private Handler handler;
     private ListView lv;
-
-    private Button sendpostdata;
     private OkHttpClient okHttpClient;
     private OkHttpClient.Builder builder;
     List<String> cookies;
     String str;
-
     String xuehao;
     String mima;
-
     String LOGINURL1 = "http://myportal.sit.edu.cn/userPasswordValidate.portal";
     String LOGINURL2 = "http://myportal.sit.edu.cn/index.portal";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +66,15 @@ public class item7 extends AppCompatActivity implements View.OnClickListener {
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarNormal) ;
+
 
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 if(msg.what == 1){
+                    progressBar.setVisibility(View.GONE);
                     adapter = new NewsAdapter(item7.this,newsList);
                     lv.setAdapter(adapter);
                     lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
