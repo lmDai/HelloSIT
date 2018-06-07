@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/top_title1"
+        android:id="@+id/top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/red_300"
@@ -28,84 +28,43 @@
     <FrameLayout
         android:id="@+id/lunhuan"
         android:layout_width="fill_parent"
-        android:layout_height="170dip"
-        android:layout_below="@+id/top_title1"
+        android:layout_height="200dip"
+        android:layout_below="@+id/top_title"
         >
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="25dip"
-            android:orientation="vertical"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:background="#33000000"
-            >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dip">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="图片标题"
-                android:textColor="@android:color/white"
-                />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:layout_centerInParent="true">
+            </android.support.v4.view.ViewPager>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="3dip"
-                >
+                android:layout_width="fill_parent"
+                android:layout_height="25dip"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:background="#33000000">
 
-                <View
-                    android:id="@+id/dot_0"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_focused"
-                    />
-                <View
-                    android:id="@+id/dot_1"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal"
-                    />
-                <View
-                    android:id="@+id/dot_2"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal"
-                    />
-                <View
-                    android:id="@+id/dot_3"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal"
-                    />
-                <View
-                    android:id="@+id/dot_4"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/dot_normal"
-                    />
+                <LinearLayout
+                    android:id="@+id/ll_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    >
+                </LinearLayout>
 
             </LinearLayout>
 
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </FrameLayout>
 

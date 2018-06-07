@@ -63,7 +63,7 @@ public class class0 extends AppCompatActivity implements View.OnClickListener {
         secondClassList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.news_lv);
 
-        Button sendpostdata = (Button) findViewById(R.id.send_request);
+        sendpostdata = (Button) findViewById(R.id.send_request);
         sendpostdata.setOnClickListener(this);
         builder = new OkHttpClient.Builder();
         okHttpClient = builder.build();

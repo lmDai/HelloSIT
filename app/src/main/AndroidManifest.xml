@@ -34,7 +34,15 @@
         <activity android:name=".item10"> </activity>
         <activity android:name=".item11"> </activity>
         <activity android:name=".item12"> </activity>
-        <activity android:name=".item13"> </activity>
+        <activity android:name=".item13"
+            android:label="分享" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>>
+        </activity>
+
         <activity android:name=".item14"> </activity>
         <activity android:name=".about.about0"></activity>
         <activity android:name=".about.about1"></activity>

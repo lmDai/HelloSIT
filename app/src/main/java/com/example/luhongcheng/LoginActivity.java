@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -88,6 +89,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent2);
             }
         });
+        bindView();
+    }
+
+    private void bindView() {
+        ImageView share = (ImageView) findViewById(R.id.shareapp) ;
+        share.setOnClickListener(new ShareText());
+    }
+
+    //分享文字至所有第三方软件
+    public class ShareText implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, "SITschool上应大学生助手集成OA系统部分查询及资讯功能，可在Android端实现查询成绩，查询电费，查询第二课堂，查询考试安排等等一系列功能，目前在酷安已发布，快来下载吧：https://www.coolapk.com/apk/187672");
+            intent.setType("text/plain");
+            startActivity(Intent.createChooser(intent, "分享到"));
+        }
     }
 
     private void test() {
@@ -119,15 +138,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-
         mWidth = main_btn_login.getMeasuredWidth();
         mHeight = main_btn_login.getMeasuredHeight();
-
         mName.setVisibility(View.INVISIBLE);
         mPsw.setVisibility(View.INVISIBLE);
-
         inputAnimator(mInputLayout, mWidth, mHeight);
-
     }
 
 

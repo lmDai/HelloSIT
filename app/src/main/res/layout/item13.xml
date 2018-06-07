@@ -6,13 +6,31 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
+    <RelativeLayout
+        android:id="@+id/share"
+        android:background="#FFF"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/shareapp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/share"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/servison"
         android:background="#FFF"
         android:gravity="center"
+        android:layout_below="@+id/share"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="160dp">
 
         <RelativeLayout
             android:id="@+id/icon"
@@ -67,6 +85,14 @@
 
         </RelativeLayout>
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/kongge"
+        android:background="#FFF"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/servison">
 
 
     </RelativeLayout>
@@ -74,7 +100,7 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:layout_below="@+id/servison"
+        android:layout_below="@+id/kongge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     />

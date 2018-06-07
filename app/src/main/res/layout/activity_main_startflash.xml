@@ -16,9 +16,11 @@
         android:layout_below="@+id/main_title"
         android:orientation="vertical" >
 
+
         <ImageView
             android:layout_width="70dip"
             android:layout_height="70dip"
+            android:scaleType="fitXY"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/project_detail_cir" />
 
@@ -73,10 +75,10 @@
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:paddingTop="2dip"
-            android:text="Login"
+            android:text="登    录"
             android:clickable="true"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/main_btn_nologin"
@@ -90,10 +92,10 @@
             android:paddingLeft="15dip"
             android:paddingRight="15dip"
             android:paddingTop="2dip"
-            android:text="noLogin"
+            android:text="免密登录"
             android:clickable="true"
             android:textColor="#ffffff"
-            android:textSize="19sp"
+            android:textSize="15sp"
             android:layout_below="@+id/main_btn_login"/>
 
     </RelativeLayout>
