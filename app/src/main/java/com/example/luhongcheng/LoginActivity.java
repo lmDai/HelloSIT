@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 else if (usernameid.length()==10 & passwordid.length()>=4){
                     memInfo(usernameid,passwordid);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
                     //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                     startActivity(intent);
                 }
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
-                Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent2 = new Intent(LoginActivity.this, MainFragmentActivity.class);
 
                 //设置startactivity.java为第一启动项，点击login传入mainactivity.java
                 startActivity(intent2);
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         password.setText(sp.getString("password",""));
 
         if (username.length()==10 && password.length()>=4){
-            Intent intent3 = new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent3 = new Intent(LoginActivity.this,MainFragmentActivity.class);
             startActivity(intent3);
         }
     }
