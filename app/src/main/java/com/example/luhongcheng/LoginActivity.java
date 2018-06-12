@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -18,38 +19,39 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.luhongcheng.UI.JellyInterpolator;
+import com.example.luhongcheng.util.EventUtil;
+import com.example.luhongcheng.util.IntentUtil;
+import com.example.luhongcheng.util.SpUtil;
 
 /**
  * Created by alex233 on 2018/4/21.
  */
 
 
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText username,password;
-    private TextView main_btn_login,main_btn_nologin;
+    private EditText username, password;
+    private TextView btnLogin, btnVisitor;
     private View progress;
     private View mInputLayout;
     private float mWidth, mHeight;
     private LinearLayout mName, mPsw;
-    String usernameid;
-    String passwordid;
+    private String usernameId;
+    private String passwordId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_startflash);
-        main_btn_login = (TextView) findViewById(R.id.main_btn_login);
-        main_btn_nologin=(TextView) findViewById(R.id.main_btn_nologin);
+        btnLogin = (TextView) findViewById(R.id.main_btn_login);
+        btnVisitor = (TextView) findViewById(R.id.main_btn_nologin);
         progress = findViewById(R.id.layout_progress);
         mInputLayout = findViewById(R.id.input_layout);
-        username=(EditText)findViewById(R.id.username);
-        password=(EditText)findViewById(R.id.password);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
         //initView();
 
         restoreInfo();
@@ -57,43 +59,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //为login设置点击事件
         //这里需要改进，login导致动画没了
-        main_btn_login.setOnClickListener(new TextView.OnClickListener() {
+        btnLogin.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
-                usernameid = username.getText().toString();
-                passwordid = password.getText().toString();
-                if(usernameid.length()==0 & passwordid.length()==0){
+                //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
+                usernameId = username.getText().toString();
+                passwordId = password.getText().toString();
+                if (TextUtils.isEmpty(usernameId) || TextUtils.isEmpty(passwordId)) {
                     //判断账号密码长度
-                    Toast.makeText(LoginActivity.this,"请输入学号和密码",Toast.LENGTH_SHORT).show();
-                }
-                else if (usernameid.length()==10 & passwordid.length()>=4){
-                    memInfo(usernameid,passwordid);
-                    Intent intent = new Intent(LoginActivity.this, MainFragmentActivity.class);
-                    //设置startactivity.java为第一启动项，点击login传入mainactivity.java
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this,"格式错误，请重试",Toast.LENGTH_SHORT).show();
+                    EventUtil.showToast(LoginActivity.this, "请输入学号和密码");
+                } else if (usernameId.length() == 10 & passwordId.length() >= 4) {
+                    memInfo(usernameId, passwordId);
+                    IntentUtil.getInstance().goActivity(LoginActivity.this, MainFragmentActivity.class);
+                    finish();
+                } else {
+                    EventUtil.showToast(LoginActivity.this, "格式错误，请重试");
                 }
             }
         });
         //无密码登录
-        main_btn_nologin.setOnClickListener(new TextView.OnClickListener() {
+        btnVisitor.setOnClickListener(new TextView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(LoginActivity.this, JellyInterpolator.class);
-                Intent intent2 = new Intent(LoginActivity.this, MainFragmentActivity.class);
-
-                //设置startactivity.java为第一启动项，点击login传入mainactivity.java
-                startActivity(intent2);
+                IntentUtil.getInstance().goActivity(LoginActivity.this, MainFragmentActivity.class);
+                finish();
             }
         });
         bindView();
     }
 
     private void bindView() {
-        ImageView share = (ImageView) findViewById(R.id.shareapp) ;
+        ImageView share = (ImageView) findViewById(R.id.shareapp);
         share.setOnClickListener(new ShareText());
     }
 
@@ -110,41 +106,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void test() {
-        SharedPreferences sp=getSharedPreferences("userid",0);
-        username.setText(sp.getString("username",""));
-        password.setText(sp.getString("password",""));
+        SharedPreferences sp = getSharedPreferences("userid", 0);
+        username.setText(sp.getString("username", ""));
+        password.setText(sp.getString("password", ""));
 
-        if (username.length()==10 && password.length()>=4){
-            Intent intent3 = new Intent(LoginActivity.this,MainFragmentActivity.class);
+        if (username.length() == 10 && password.length() >= 4) {
+            Intent intent3 = new Intent(LoginActivity.this, MainFragmentActivity.class);
             startActivity(intent3);
         }
     }
 
 
     /*保存密码-嘻嘻*/
-    private void memInfo(String usernameid,String passwordid){
-        SharedPreferences.Editor editor=getSharedPreferences("userid",0).edit();
-        editor.putString("username",usernameid);
-        editor.putString("password",passwordid);
-        editor.commit();
+    private void memInfo(String usernameId, String passwordId) {
+        SpUtil.putString(LoginActivity.this, Constants.USERNAME, usernameId);
+        SpUtil.putString(LoginActivity.this, Constants.PASSWORD, passwordId);
+
     }
 
-    private void restoreInfo(){
-        SharedPreferences sp=getSharedPreferences("userid",0);
-        username.setText(sp.getString("username",""));
-        password.setText(sp.getString("password",""));
+    private void restoreInfo() {
+        username.setText(SpUtil.getString(LoginActivity.this, Constants.USERNAME));
+        password.setText(SpUtil.getString(LoginActivity.this, Constants.PASSWORD));
     }
-    /**保存密码就到这里了*/
+
+    /**
+     * 保存密码就到这里了
+     */
 
     @Override
     public void onClick(View view) {
-        mWidth = main_btn_login.getMeasuredWidth();
-        mHeight = main_btn_login.getMeasuredHeight();
+        mWidth = btnLogin.getMeasuredWidth();
+        mHeight = btnLogin.getMeasuredHeight();
         mName.setVisibility(View.INVISIBLE);
         mPsw.setVisibility(View.INVISIBLE);
         inputAnimator(mInputLayout, mWidth, mHeight);
     }
-
 
 
     private void inputAnimator(final View view, float w, float h) {
@@ -218,12 +214,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         params.rightMargin = 0;
         mInputLayout.setLayoutParams(params);
 
-        ObjectAnimator animator2 = ObjectAnimator.ofFloat(mInputLayout, "scaleX", 0.5f,1f );
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(mInputLayout, "scaleX", 0.5f, 1f);
         animator2.setDuration(500);
         animator2.setInterpolator(new AccelerateDecelerateInterpolator());
         animator2.start();
     }
-
 
 
 }
